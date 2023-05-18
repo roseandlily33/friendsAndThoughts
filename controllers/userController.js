@@ -1,15 +1,15 @@
 const { User } = require('../models/User');
 module.exports = {
-    //Get all users - 
+    //Get all users - should work
     async getUsers(req, res){
         try{
-            const users = await User.find();
+            const users = await User.find().sort({username: 1});
             res.status(200).json(users);
         } catch(err){
             res.status(500).json(err);
         }
     },
-    //Gets a user by a single id -
+    //Gets a user by a single id - should work
     async getOneUser(req, res){
         try{
             const singleUser = await User.findOne({_id: req.params.userId})
@@ -45,7 +45,7 @@ module.exports = {
     //Deletes a user - 
     async deleteUser(req, res){
         try{
-            const deletedUser = await User.findOneByIdAndDelete()
+            const deletedUser = await User.findOneByIdAndDelete({id: req.params.id})
             res.status(200).json(deletedUser);
         } catch(err){
             res.status(500).json(err);

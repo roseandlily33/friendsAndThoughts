@@ -1,9 +1,9 @@
 const {Schema, model} = require('mongoose');
-import {isEmail} from 'validator';
+
 
 const userSchema = new Schema ({
-    userName: {type: String, required: true, unique: true, trim: true },
-    email: {type: String, required: true, unique: true, validate:[isEmail, 'Enter a valid Email']},
+    username: {type: String, required: true, unique: true, trim: true },
+    email: {type: String, required: true, unique: true },
     thoughts: [{type: Schema.Types.ObjectId, ref: 'Thought'}],
     friends: [{type: Schema.Types.ObjectId, ref: 'User'}]
 }, {
