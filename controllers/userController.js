@@ -56,20 +56,21 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    //Adds a friend -
+    //Adds a friend - work
     async addFriend(req, res){
         try{
-            const newFriend = await User.create();
+            const newFriend = await User.findOneAndUpdate({_id: req.params.id}, {$push: {friends: req.params.friendId}});
             res.status(200).json(newFriend);
         } catch(err){
             res.status(500).json(err);
         }
     },
 
-    //Deletes a friend -
+    //Deletes a friend - works
     async deleteFriend(req, res){
+        console.log('Deleting friend');
         try{
-            const deleteFriend = await User.
+            const deleteFriend = await User.findOneAndUpdate({_id: req.params.id}, {$pull: {friends: req.params.friendId}});
             res.json(deleteFriend);
         } catch(err){
             res.status(500).json(err);
