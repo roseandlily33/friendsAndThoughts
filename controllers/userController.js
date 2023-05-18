@@ -1,52 +1,57 @@
-const { User } = require('../models/User');
+const { User, Thought } = require('../models');
+
 module.exports = {
-    //Get all users - should work
+    
+    //Get all users - works
     async getUsers(req, res){
         try{
             const users = await User.find().sort({username: 1});
-            res.status(200).json(users);
+            res.json(users);
         } catch(err){
             res.status(500).json(err);
         }
     },
-    //Gets a user by a single id - should work
+
+    //Gets a user by a single id - works
     async getOneUser(req, res){
         try{
-            const singleUser = await User.findOne({_id: req.params.userId})
-            .select('-__v');
+            const singleUser = await User.findOne({_id: req.params.id});
             if(!singleUser){
-                res.status(404).json({message: 'No user found'});
+                res.json({message: 'No user found'});
             }
-            res.status(200).json(singleUser);
+            res.json(singleUser);
         } catch(err){
             res.status(500).json(err);
         }
     },
-    //Creates a user - 
+    //Creates a user - works
     async createUser(req, res){
         try{
             const userData = await User.create(req.body);
-            res.status(200).json(userData);
+            res.json(userData);
         } catch (err){
             res.status(500).json(err);
         }
     },
 
-    //Updates a user - 
+    //Updates a user - works
     async updateUser(req, res){
         try{
-            const updated = await User.findOneAndUpdate()
-            res.status(200).json(updated);
+            const updated = await User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true});
+            if(!updated){
+                res.json({message: 'No user found'});
+            }
+            res.json(updated);
         } catch(err){
             res.status(500).json(err)
         }
     },
 
-    //Deletes a user - 
+    //Deletes a user - works
     async deleteUser(req, res){
         try{
-            const deletedUser = await User.findOneByIdAndDelete({id: req.params.id})
-            res.status(200).json(deletedUser);
+            const deletedUser = await User.findOneAndDelete({_id: req.params.id})
+            res.json(deletedUser);
         } catch(err){
             res.status(500).json(err);
         }
@@ -65,7 +70,7 @@ module.exports = {
     async deleteFriend(req, res){
         try{
             const deleteFriend = await User.
-            res.status(200).json(deleteFriend);
+            res.json(deleteFriend);
         } catch(err){
             res.status(500).json(err);
         }
