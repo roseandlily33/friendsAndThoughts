@@ -1,0 +1,23 @@
+{
+  "name": "friendsandthoughts",
+  "version": "1.0.0",
+  "description": "A social network API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roseandlily33/friendsAndThoughts.git"
+  },
+  "author": "Victoria Benoit",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/roseandlily33/friendsAndThoughts/issues"
+  },
+  "homepage": "https://github.com/roseandlily33/friendsAndThoughts#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.1.1"
+  }
+}
