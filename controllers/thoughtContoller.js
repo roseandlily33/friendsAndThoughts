@@ -37,10 +37,12 @@ module.exports = {
         }
     },
 
-    //Updates a thought -
+    //Updates a thought - works
     async updateThought(req, res){
+        console.log('Updaeing post');
         try{
-            const updated = await
+            const updated = await Thought.findOneAndUpdate({_id: req.params.id}, req.body, {new: true});
+            console.log(updated);
             res.json(updated);
         } catch(err){
             res.status(500).json(err);
