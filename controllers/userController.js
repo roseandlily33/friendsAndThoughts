@@ -1,8 +1,8 @@
-const { User, Thought } = require('../models');
+const { User } = require('../models');
 
 module.exports = {
     
-    //Get all users - works
+    //Get all users 
     async getUsers(req, res){
         try{
             const users = await User.find().sort({username: 1});
@@ -12,7 +12,7 @@ module.exports = {
         }
     },
 
-    //Gets a user by a single id - works
+    //Gets a user by a single id 
     async getOneUser(req, res){
         try{
             const singleUser = await User.findOne({_id: req.params.id});
@@ -24,7 +24,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    //Creates a user - works
+    //Creates a user 
     async createUser(req, res){
         try{
             const userData = await User.create(req.body);
@@ -34,7 +34,7 @@ module.exports = {
         }
     },
 
-    //Updates a user - works
+    //Updates a user 
     async updateUser(req, res){
         try{
             const updated = await User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true});
@@ -47,7 +47,7 @@ module.exports = {
         }
     },
 
-    //Deletes a user - works
+    //Deletes a user 
     async deleteUser(req, res){
         try{
             const deletedUser = await User.findOneAndDelete({_id: req.params.id})
@@ -56,7 +56,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    //Adds a friend - work
+    //Adds a friend 
     async addFriend(req, res){
         try{
             const newFriend = await User.findOneAndUpdate({_id: req.params.id}, {$push: {friends: req.params.friendId}});
@@ -66,9 +66,8 @@ module.exports = {
         }
     },
 
-    //Deletes a friend - works
+    //Deletes a friend 
     async deleteFriend(req, res){
-        console.log('Deleting friend');
         try{
             const deleteFriend = await User.findOneAndUpdate({_id: req.params.id}, {$pull: {friends: req.params.friendId}});
             res.json(deleteFriend);
