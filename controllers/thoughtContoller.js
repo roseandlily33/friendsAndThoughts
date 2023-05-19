@@ -4,33 +4,30 @@ module.exports = {
     //Gets all the thoughts - works
     async getThoughts(req, res){
         try{
-            const allThoughts = await Thought.find();
+            const allThoughts = await Thought.find().select(['-__v', '-createdAt']);
             res.status(200).json(allThoughts);
         } catch(err){
             res.status(500).json(err);
         }
     },
-    //Gets the thoughts for one user -
+    //Gets the thoughts for one user - works
     async myThoughts(req, res){
         try{
             const thoughts = await Thought.findById({_id: req.params.id})
-            .populate('reactions');
+            .populate('reactions').select(['-__v', '-createdAt']);
             res.json(thoughts);
         }catch(err){
             res.status(500).json(err);
         }
     },
 
-    //Creates a thought - 
+    //Creates a thought - works
     async createThought(req, res){
-        console.log('Creating a thought');
         try{
             const thought = await Thought.create(req.body);
-            console.log(thought);
-            const user = await User.findOneAndUpdate({username: req.body.username}, {
-                $addToSet: {thoughts: thought._id}
+            const user = await User.findOneAndUpdate({_id: req.body.userId}, {
+                $push: {thoughts: thought._id}
             }, {new: true});
-            console.log(user);
             if(!user){
                 res.status(404).json({message: 'No thought created'});
             }
