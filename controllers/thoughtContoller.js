@@ -1,4 +1,4 @@
-const {User, Thought } = require('../models/Thoughts');
+const { User, Thought } = require('../models');
 
 module.exports = {
     //Gets all the thoughts - works
@@ -27,12 +27,9 @@ module.exports = {
         try{
             const thought = await Thought.create(req.body);
             console.log(thought);
-            console.log(thought._id);
-            console.log(thought.username);
             const user = await User.findOneAndUpdate({username: req.body.username}, {
-                $push: {thoughts: req.body._id}
+                $addToSet: {thoughts: thought._id}
             }, {new: true});
-          
             console.log(user);
             if(!user){
                 res.status(404).json({message: 'No thought created'});
@@ -79,7 +76,7 @@ module.exports = {
     //Delete a reaction - 
     async deleteReaction(req, res){
         try{
-            const deleted = await 
+            const deleted = await Thought.findOneAndUpdate({_id: req.params.thoughtId}, {$pull: {reactions: {reactionId: req.body.reactionId}}})
             res.status(200).json(deleted);
         } catch(err){
             res.status(500).json(err);
