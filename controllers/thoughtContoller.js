@@ -39,10 +39,8 @@ module.exports = {
 
     //Updates a thought - works
     async updateThought(req, res){
-        console.log('Updaeing post');
         try{
             const updated = await Thought.findOneAndUpdate({_id: req.params.id}, req.body, {new: true});
-            console.log(updated);
             res.json(updated);
         } catch(err){
             res.status(500).json(err);
@@ -52,7 +50,7 @@ module.exports = {
     //Deletes a thought - 
     async deleteThought(req, res){
         try{
-            const deleted = await 
+            const deleted = await Thought.findOneAndDelete({_id: req.params.id})
             res.json(deleted);
         } catch(err){
             res.status(500).json(err);
