@@ -47,7 +47,7 @@ module.exports = {
         }
     },
 
-    //Deletes a thought - 
+    //Deletes a thought - works
     async deleteThought(req, res){
         try{
             const deleted = await Thought.findOneAndDelete({_id: req.params.id})
@@ -61,8 +61,7 @@ module.exports = {
     async addReaction(req, res){
         console.log('Adding a reaction');
         try{
-            const reaction = await Thought.findOneAndUpdate({_id:req.params.thoughtId}, {$addToSet: {reactions: req.body}}, {new: true});
-            console.log(reaction);
+            const reaction = await Thought.findOneAndUpdate({_id: req.params.thoughtId}, {$push: {reactions: req.body}}, {new: true});
             res.json(reaction);
         } catch(err){
             res.status(500).json(err);
@@ -72,6 +71,7 @@ module.exports = {
 
     //Delete a reaction - 
     async deleteReaction(req, res){
+        console.log('deleting a reaction');
         try{
             const deleted = await Thought.findOneAndUpdate({_id: req.params.thoughtId}, {$pull: {reactions: {reactionId: req.body.reactionId}}})
             res.status(200).json(deleted);
@@ -79,6 +79,4 @@ module.exports = {
             res.status(500).json(err);
         }
     }
-
-
 }
