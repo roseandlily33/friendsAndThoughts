@@ -1,7 +1,7 @@
 const { User, Thought } = require('../models');
 
 module.exports = {
-    //Gets all the thoughts - works
+    //Gets all the thoughts 
     async getThoughts(req, res){
         try{
             const allThoughts = await Thought.find().select(['-__v', '-createdAt']);
@@ -10,7 +10,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    //Gets the thoughts for one user - works
+    //Gets the thoughts for one user 
     async myThoughts(req, res){
         try{
             const thoughts = await Thought.findById({_id: req.params.id})
@@ -21,7 +21,7 @@ module.exports = {
         }
     },
 
-    //Creates a thought - works
+    //Creates a thought 
     async createThought(req, res){
         try{
             const thought = await Thought.create(req.body);
@@ -37,7 +37,7 @@ module.exports = {
         }
     },
 
-    //Updates a thought - works
+    //Updates a thought 
     async updateThought(req, res){
         try{
             const updated = await Thought.findOneAndUpdate({_id: req.params.id}, req.body, {new: true});
@@ -47,7 +47,7 @@ module.exports = {
         }
     },
 
-    //Deletes a thought - works
+    //Deletes a thought 
     async deleteThought(req, res){
         try{
             const deleted = await Thought.findOneAndDelete({_id: req.params.id})
@@ -57,7 +57,7 @@ module.exports = {
         }
     },
 
-    //Add a reaction -
+    //Add a reaction 
     async addReaction(req, res){
         console.log('Adding a reaction');
         console.log(req.body);
@@ -70,13 +70,14 @@ module.exports = {
         }
     },
 
-    //Delete a reaction - 
+    //Delete a reaction 
     async deleteReaction(req, res){
         console.log('deleting a reaction');
         try{
-            const deleted = await Thought.findOneAndUpdate({id: req.params.thoughtId}, {$pull: {reactions: {reactionId: req.body.reactionId}}});
-            console.log('Deleted');
-            res.status(200).json(deleted);
+            const deleted = await Thought.findOneAndUpdate({id: req.params.thoughtId}, 
+                {$pull: {reactions: {reactionId: req.body.reactionId}}}, {new: true});
+            console.log('Deleted'+ deleted);
+            res.status(200).json({message: 'Deleted!'});
         } catch(err){
             res.status(500).json(err);
         }
