@@ -37,7 +37,5 @@ thoughtSchema.virtual('formatDate').get(function(date){
 });
 
 
-
-//const Reaction = model('Reaction', reactionSchema);
 const Thought = model('Thought', thoughtSchema);
 module.exports = Thought;
