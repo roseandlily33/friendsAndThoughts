@@ -9,7 +9,7 @@ Technologies that I used are express, mongoose, mongoDB, and moment.
 Clone the repository, npm install, npm run server. 
 
 ## Video Walkthrough
-https://drive.google.com/file/d/1ozfsyx7rZ7POlLIUiLAo_8TwBDsuzKj7/view
+[https://drive.google.com/file/d/1ozfsyx7rZ7POlLIUiLAo_8TwBDsuzKj7/view](https://drive.google.com/file/d/1etLhiGN96uRz7OPn0YyJNe6Ip5SY7KMr/view)
 I had a couple things that were already copied when it came to the userId's so that it could go faster and there would be less jumping back and forth. 
 
 ## What I Learned:
