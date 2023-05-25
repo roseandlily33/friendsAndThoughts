@@ -5,7 +5,7 @@ module.exports = {
     async getThoughts(req, res){
         try{
             const allThoughts = await Thought.find().select(['-__v', '-createdAt']);
-            res.status(200).json(allThoughts);
+            res.json(allThoughts);
         } catch(err){
             res.status(500).json(err);
         }
